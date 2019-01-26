@@ -1,37 +1,34 @@
 package io.github.blaney83;
 
 import org.knime.core.node.defaultnodesettings.DefaultNodeSettingsPane;
+import org.knime.core.node.defaultnodesettings.DialogComponentBoolean;
 import org.knime.core.node.defaultnodesettings.DialogComponentNumber;
+import org.knime.core.node.defaultnodesettings.DialogComponentString;
+import org.knime.core.node.defaultnodesettings.SettingsModelBoolean;
 import org.knime.core.node.defaultnodesettings.SettingsModelIntegerBounded;
+import org.knime.core.node.defaultnodesettings.SettingsModelString;
 
 /**
  * <code>NodeDialog</code> for the "DynamicColumnGenerator" Node.
  * A dynamic column generator for appending columns to tables to assist with workflow testing, visualization techniques and general validation.
- *
- * This node dialog derives from {@link DefaultNodeSettingsPane} which allows
- * creation of a simple dialog with standard components. If you need a more 
- * complex dialog please derive directly from 
- * {@link org.knime.core.node.NodeDialogPane}.
  * 
  * @author Ben Laney
  */
 public class DynamicColumnGeneratorNodeDialog extends DefaultNodeSettingsPane {
 
-    /**
-     * New pane for configuring DynamicColumnGenerator node dialog.
-     * This is just a suggestion to demonstrate possible default dialog
-     * components.
-     */
     protected DynamicColumnGeneratorNodeDialog() {
         super();
         
-        addDialogComponent(new DialogComponentNumber(
-                new SettingsModelIntegerBounded(
-                    DynamicColumnGeneratorNodeModel.CFGKEY_COUNT,
-                    DynamicColumnGeneratorNodeModel.DEFAULT_COUNT,
-                    Integer.MIN_VALUE, Integer.MAX_VALUE),
-                    "Counter:", /*step*/ 1, /*componentwidth*/ 5));
+        addDialogComponent(new DialogComponentString(
+                new SettingsModelString(
+                    DynamicColumnGeneratorNodeModel.CFGKEY_NEW_COLUMN_NAME, "Generated Column"),
+                	"New column name: ", true, 25
+                    ));
                     
+        addDialogComponent(new DialogComponentBoolean(
+        		new SettingsModelBoolean(
+        				DynamicColumnGeneratorNodeModel.CFGKEY_STRING_COLUMN, false)
+        		, "Check for string column, blank for double column."));
     }
 }
 
